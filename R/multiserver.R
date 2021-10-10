@@ -1,14 +1,17 @@
-#' Multiserver for bank
+#' Bank data set
 #'
-#' @param Arrivals Arrivalss
-#' @param ServiceTimes SericeTimess
-#' @param NumServers NumServerss
+#' Describe the dataset here in 1 sentence
+#' The bank data frame has XXX observations on 2 variables.
 #'
-#' @return Bank
-#' @export
+#' @name bank
+#' @format A data frame with XXX observations on 2 variables.
+#' \describe{
+#' \item{arrival_time}{whats this?}
+#' \item{service_time}{what's this?}
+#' }
 #'
-#' @examples
-#' Multiserver(233,19)
+#' @usage
+#' data(bank)
 Multiserver <- function(Arrivals, ServiceTimes, NumServers = 1) {
   if (any(Arrivals <= 0 | ServiceTimes <= 0) || NumServers <= 0){
     stop("Arrivals, ServiceTimes must be positive & NumServers must be positive" )
@@ -42,6 +45,6 @@ Multiserver <- function(Arrivals, ServiceTimes, NumServers = 1) {
     # server becomes available again after serving ith customer
     AvailableFrom[ChosenServer[i]] <- ServiceEnds[i]
   }
-  out <- data.frame(Arrivals, ServiceBegins, ChosenServer, ServiceEnds)
+  out <- dplyr::tibble(Arrivals, ServiceBegins, ChosenServer, ServiceEnds)
   return(out)
 }
